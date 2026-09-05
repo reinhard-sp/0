@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will Know How to Stay</title>
+<style>
+  :root{
+    --blush: #ffe3ec;
+    --petal: #ffb6c9;
+    --rose: #ff7fa3;
+    --deep-rose: #d94f79;
+    --plum-text: #5b2340;
+    --cream: #fff6f0;
+    --sage: #b9d9c2;
+    --gold: #f3c969;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0;
+    height:100%;
+    font-family: Georgia, 'Iowan Old Style', serif;
+    background: radial-gradient(circle at 20% 10%, var(--blush), var(--petal) 60%, var(--rose) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  .stage{
+    position:relative;
+    width:min(600px, 92vw);
+    height:min(760px, 90vh);
+  }
+
+  .frame{
+    position:absolute;
+    inset:0;
+    border-radius:28px;
+    padding:5px;
+    background: linear-gradient(120deg, var(--gold), var(--rose), var(--sage), var(--deep-rose), var(--gold));
+    background-size: 300% 300%;
+    animation: borderFlow 8s ease infinite;
+    box-shadow: 0 20px 45px -15px rgba(217,79,121,0.55);
+  }
+
+  @keyframes borderFlow{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+  }
+
+  .frame:hover{ animation-duration: 3s; }
+
+  .panel{
+    position:relative;
+    width:100%;
+    height:100%;
+    background: var(--cream);
+    border-radius: 24px;
+    overflow:hidden;
+  }
+
+  .poem-scroll{
+    position:relative;
+    z-index:2;
+    height:100%;
+    overflow-y:auto;
+    padding: 56px 44px 70px;
+    color: var(--plum-text);
+  }
+
+  .poem-scroll::-webkit-scrollbar{ width:10px; }
+  .poem-scroll::-webkit-scrollbar-track{ background: var(--blush); }
+  .poem-scroll::-webkit-scrollbar-thumb{
+    background: linear-gradient(var(--rose), var(--deep-rose));
+    border-radius: 10px;
+  }
+
+  h1{
+    font-size: 1.9rem;
+    font-weight:400;
+    letter-spacing: 0.3px;
+    color: var(--deep-rose);
+    margin: 0 0 6px;
+    line-height:1.3;
+  }
+
+  .byline{
+    font-style: italic;
+    color: var(--rose);
+    margin-bottom: 34px;
+    font-size: 0.92rem;
+  }
+
+  .poem-body p{
+    max-width: 42ch;
+    line-height: 1.85;
+    font-size: 1.04rem;
+    margin: 0 0 26px;
+  }
+
+  .poem-body p.emphasis{
+    color: var(--deep-rose);
+    font-style: italic;
+  }
+
+  .poem-body p:nth-of-type(3n+2){
+    margin-left: 8%;
+  }
+
+  .critters{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+  }
+
+  .critter{
+    position:absolute;
+    font-size: 1.4rem;
+    opacity:0.85;
+    animation: drift 7s ease-in-out infinite;
+    filter: drop-shadow(0 2px 3px rgba(217,79,121,0.25));
+  }
+
+  @keyframes drift{
+    0%,100%{ transform: translateY(0) rotate(-4deg); }
+    50%{ transform: translateY(-14px) rotate(6deg); }
+  }
+
+  @keyframes float-sideways{
+    0%,100%{ transform: translateX(0) rotate(0deg); }
+    50%{ transform: translateX(10px) rotate(-8deg); }
+  }
+
+  .c1{ top:-10px; left:14px; animation-duration:6s; }
+  .c2{ top:-8px; right:20px; animation-duration:8s; animation-delay:0.6s; }
+  .c3{ bottom:-10px; left:30%; animation-duration:7.5s; animation-delay:1s; }
+  .c4{ bottom:-6px; right:12%; animation-duration:6.5s; animation-delay:0.3s; }
+  .c5{ top:40%; left:-14px; animation: float-sideways 6s ease-in-out infinite; }
+  .c6{ top:60%; right:-14px; animation: float-sideways 7s ease-in-out infinite; animation-delay:0.8s; }
+  .c7{ top:15%; right:-12px; animation: float-sideways 5.5s ease-in-out infinite; animation-delay:1.2s; }
+  .c8{ bottom:20%; left:-12px; animation: float-sideways 6.8s ease-in-out infinite; animation-delay:0.4s; }
+
+  .petal{
+    position:absolute;
+    top:-5%;
+    font-size:1rem;
+    opacity:0.5;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall{
+    0%{ transform: translateY(-10%) translateX(0) rotate(0deg); opacity:0; }
+    10%{ opacity:0.6; }
+    100%{ transform: translateY(115%) translateX(20px) rotate(200deg); opacity:0; }
+  }
+
+  .p1{ left:8%; animation-duration:9s; animation-delay:0s; }
+  .p2{ left:35%; animation-duration:12s; animation-delay:2s; }
+  .p3{ left:60%; animation-duration:10s; animation-delay:1s; }
+  .p4{ left:80%; animation-duration:14s; animation-delay:3s; }
+  .p5{ left:20%; animation-duration:11s; animation-delay:4s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .frame, .critter, .petal{ animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="frame">
+    <div class="panel">
+
+      <div class="critters">
+        <span class="critter c1">🐇</span>
+        <span class="critter c2">🌸</span>
+        <span class="critter c3">🐰</span>
+        <span class="critter c4">🌷</span>
+        <span class="critter c5">🦋</span>
+        <span class="critter c6">🌸</span>
+        <span class="critter c7">🐇</span>
+        <span class="critter c8">🌷</span>
+
+        <span class="petal p1">🌸</span>
+        <span class="petal p2">🌸</span>
+        <span class="petal p3">🌸</span>
+        <span class="petal p4">🌸</span>
+        <span class="petal p5">🌸</span>
+      </div>
+
+      <div class="poem-scroll">
+        <h1>Will Know How to Stay</h1>
+        <div class="byline">a poem</div>
+
+        <div class="poem-body">
+        <p>Will this life ever get interesting?<br>
+        As I whisper to myself<br>
+        Then, you came, with little to no mystery<br>
+        Like an open book, and I thought to myself:<br>
+        "Pretty." And nothing else.<br>
+        I never wanted to be with you<br>
+        I never even think of ever talking to you<br>
+        I didn't even want you in my life<br>
+        What more does an open book has to offer?</p>
+
+        <p>But one thing changed,<br>
+        and another followed,<br>
+        then another,<br>
+        then another—<br>
+        like a domino falling,<br>
+        one by one,<br>
+        until I could no longer remember<br>
+        which piece began it all.</p>
+
+        <p class="emphasis">You were never an open book.</p>
+
+        <p>You were something...<br>
+        something bizarre,<br>
+        something I could not place<br>
+        into any definition I knew.</p>
+
+        <p>And somehow,<br>
+        I wanted to know.</p>
+
+        <p>You were not simply pretty.<br>
+        You were something undefined—<br>
+        like a limit that refuses to settle,<br>
+        an indeterminate form<br>
+        that makes you wonder<br>
+        whether there is an answer at all.</p>
+
+        <p>You were the torrent of a river,<br>
+        strong enough to shake the stones beneath it,<br>
+        yet gentle enough to make me stay and watch.</p>
+
+        <p>You were the sun's ray<br>
+        that luminates the ground,<br>
+        the kind of light<br>
+        that makes even ordinary things<br>
+        look worth remembering.</p>
+
+        <p class="emphasis">You were something...<br>
+        something mesmerizing.</p>
+
+        <p>As time passed,<br>
+        I wanted to learn more about you.</p>
+
+        <p>I wanted to turn every page,<br>
+        even the ones you tried to hide.<br>
+        I wanted to read your book<br>
+        until there was nothing left unread.</p>
+
+        <p>But not every chapter was beautiful.</p>
+
+        <p>Some were difficult.<br>
+        Some were painful.<br>
+        Some were written in words<br>
+        I did not know how to understand.</p>
+
+        <p>Still,<br>
+        I kept reading.</p>
+
+        <p class="emphasis">I was reading you.</p>
+
+        <p>And somewhere between the pages,<br>
+        I realized—</p>
+
+        <p class="emphasis">I wanted you.</p>
+
+        <p>I talked to you,<br>
+        not because I wanted to,<br>
+        but because something in me<br>
+        was curious about what came next.</p>
+
+        <p>And I was amazed<br>
+        by the things you had accomplished.</p>
+
+        <p>Yet there was still a distance<br>
+        I could not ignore.</p>
+
+        <p>You had reached heights<br>
+        I had already stood upon.<br>
+        And perhaps because of that,<br>
+        perhaps because I thought<br>
+        I had already seen everything—</p>
+
+        <p>gradually,<br>
+        I lost interest.</p>
+
+        <p class="emphasis">I didn't want you anymore.</p>
+
+        <p>Until I turned the next page.</p>
+
+        <p>And there,<br>
+        I read what it meant<br>
+        to be beautiful.</p>
+
+        <p>Not beautiful in the way<br>
+        people look at you,</p>
+
+        <p>but beautiful in the way<br>
+        you treat the world<br>
+        when no one is watching.</p>
+
+        <p>I read what it meant<br>
+        to be kind.</p>
+
+        <p>And I realized<br>
+        that perhaps beauty<br>
+        was never something<br>
+        I could measure by the cover.</p>
+
+        <p>So I turned another page.</p>
+
+        <p>And what I saw<br>
+        was something<br>
+        I would never forget.</p>
+
+        <p>The title read:</p>
+
+        <p class="emphasis">"Help me write the pages of my life."</p>
+
+        <p>I stared at it for a while.</p>
+
+        <p>"She wants me<br>
+        to write these pages?"</p>
+
+        <p>So I did.</p>
+
+        <p>I began writing beside you,<br>
+        one page at a time,<br>
+        thinking that perhaps<br>
+        this was where our story<br>
+        was meant to begin.</p>
+
+        <p>But the more I wrote,<br>
+        the more I doubted.</p>
+
+        <p>Maybe she wanted<br>
+        someone else beside her.</p>
+
+        <p>Maybe the hand<br>
+        she wanted holding hers<br>
+        was never mine.</p>
+
+        <p>She never specified<br>
+        who she wanted<br>
+        to write it with.</p>
+
+        <p>And yet,<br>
+        while I was writing your book,</p>
+
+        <p class="emphasis">you were writing mine.</p>
+
+        <p class="emphasis">You were writing mine.</p>
+
+        <p>And when I finally read<br>
+        the page you were writing,<br>
+        there was a sentence<br>
+        waiting for me at the bottom:</p>
+
+        <p class="emphasis">"I want you to write my story,<br>
+        my love."</p>
+
+        <p>You were asking me.</p>
+
+        <p>But what does a request<br>
+        really change?</p>
+
+        <p>I never wanted anyone<br>
+        to write my story.</p>
+
+        <p>And I never wanted<br>
+        to write someone else's<br>
+        with my own hand.</p>
+
+        <p>I was always<br>
+        the excess of what could be—<br>
+        the possibility beyond<br>
+        what anyone could calculate.</p>
+
+        <p>So I wanted to stop.</p>
+
+        <p>I didn't want<br>
+        to write your story anymore.</p>
+
+        <p>And I didn't want you<br>
+        writing mine.</p>
+
+        <p>I thought perhaps<br>
+        some stories are better<br>
+        left unwritten.</p>
+
+        <p>Some lives are meant<br>
+        to be lived without<br>
+        another hand deciding<br>
+        where the next page goes.</p>
+
+        <p>Then—</p>
+
+        <p class="emphasis">you held my hand.</p>
+
+        <p>And with the gentleness<br>
+        of someone who already knew<br>
+        what I was afraid to say,</p>
+
+        <p>you wrote a single word<br>
+        on the blank page of my life.</p>
+
+        <p class="emphasis">"Stay."</p>
+
+        <p class="emphasis">"No,"<br>
+        I replied.</p>
+
+        <p>What more<br>
+        could staying do?</p>
+
+        <p>What could one word<br>
+        possibly change?</p>
+
+        <p>Then you handed me<br>
+        an empty book.</p>
+
+        <p>There was no title.</p>
+
+        <p>No first chapter.</p>
+
+        <p>Not even a cover page.</p>
+
+        <p>It was untouched.<br>
+        Unwritten.<br>
+        Untainted by ink.</p>
+
+        <p>A book that had never<br>
+        belonged to anyone.</p>
+
+        <p>And inside it,<br>
+        there was a note.</p>
+
+        <p class="emphasis">"My love,<br>
+        don't write my story.</p>
+
+        <p class="emphasis">My love,<br>
+        let's write our story.</p>
+
+        <p>A story where<br>
+        only the two of us exist.</p>
+
+        <p>A story so beautiful<br>
+        that even the world<br>
+        would be jealous<br>
+        of what we are.</p>
+
+        <p>A story so beautiful<br>
+        that even the afterlife<br>
+        would preserve it<br>
+        after it is written.</p>
+
+        <p class="emphasis">A story so beautiful<br>
+        that it will never end."</p>
+
+        <p>I read it again.</p>
+
+        <p>And again.</p>
+
+        <p>Afterlife.</p>
+
+        <p>And the end.</p>
+
+        <p>How strange.</p>
+
+        <p>How beautiful.</p>
+
+        <p>A contradiction<br>
+        hidden inside a promise.</p>
+
+        <p>Perhaps forever<br>
+        was never meant to mean<br>
+        that there would be no ending.</p>
+
+        <p>Perhaps forever<br>
+        was simply this—</p>
+
+        <p>that whatever ending comes,<br>
+        we were there<br>
+        to write it together.</p>
+
+        <p>And suddenly,<br>
+        the blank pages<br>
+        didn't frighten me anymore.</p>
+
+        <p>They called to me.</p>
+
+        <p>For the first time,<br>
+        I didn't want to know<br>
+        what the next page contained.</p>
+
+        <p class="emphasis">I wanted to write it.</p>
+
+        <p class="emphasis">With you.</p>
+
+        <p>Not your story.<br>
+        Not mine.</p>
+
+        <p class="emphasis">Ours.</p>
+
+        <p>Because maybe<br>
+        I was never meant<br>
+        to finish your book.</p>
+
+        <p>Maybe you were never meant<br>
+        to finish mine.</p>
+
+        <p>Maybe we were meant<br>
+        to close both of them,</p>
+
+        <p>and begin again<br>
+        with empty pages.</p>
+
+        <p>A story with no certainty.<br>
+        No predetermined ending.<br>
+        No promise that every chapter<br>
+        would be beautiful.</p>
+
+        <p>Only two people<br>
+        holding the same pen,</p>
+
+        <p>turning the same pages,</p>
+
+        <p>and choosing—<br>
+        again and again—</p>
+
+        <p class="emphasis">to stay.</p>
+
+        <p>Pretty,<br>
+        with all the more she offers<br>
+        I wanted to be with you<br>
+        I always thought of sharing everything with you<br>
+        And I want to build this life with you<br>
+        Because<br>
+        Our book has so much to offer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
